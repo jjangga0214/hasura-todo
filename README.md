@@ -39,9 +39,12 @@ yarn start
 ## Yarn scripts
 
 ```bash
+yarn db:up # runs hasura and postgres
+yarn db:down # clears hasura and postgres
+
 yarn test # runs all tests (runs `jest` against "*.test.js")
 yarn test:unit # runs unit tests
-yarn test:integration # runs integration tests
+yarn test:integration # runs integration tests # TODO: configure with db
 yarn test:coverage # runs all tests and measures coverage
 yarn test:unit:coverage # runs unit tests and measures coverage
 yarn test:integration:coverage # runs integration tests and measures coverage
