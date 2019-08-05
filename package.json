@@ -1,0 +1,122 @@
+{
+  "name": "hasura-todo",
+  "version": "0.0.1",
+  "description": "Demo of hasura",
+  "license": "MIT",
+  "private": true,
+  "keywords": [
+    "hasura-todo",
+    "hasura",
+    "todo",
+    "helloworld",
+    "boilerplate",
+    "scaffold",
+    "skeleton"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjangga0214/hasura-todo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jjangga0214/hasura-todo/issues"
+  },
+  "homepage": "https://github.com/jjangga0214/hasura-todo",
+  "author": {
+    "name": "Gil B. Chan",
+    "email": "bnbcmindnpass@gmail.com",
+    "url": "https://github.com/jjangga0214"
+  },
+  "engines": {
+    "node": "10.x",
+    "yarn": ">=1"
+  },
+  "engineStrict": true,
+  "scripts": {
+    "postinstall": "link-module-alias",
+    "release": "HUSKY_SKIP_HOOKS=1 standard-version",
+    "husky-skip": "HUSKY_SKIP_HOOKS=1",
+    "lint": "yarn lint:js:all && yarn lint:md:all",
+    "lint:js:all": "yarn lint:js .",
+    "lint:js": "yarn lint:js:pure --fix",
+    "lint:js:pure": "eslint --ext js --ext md",
+    "lint:md:all": "yarn lint:md .",
+    "lint:md": "markdownlint --ignore node_modules --ignore .git --ignore CHANGELOG.md",
+    "test": "dotenv -- jest",
+    "test:unit": "yarn test test/unit",
+    "test:integration": "yarn test test/integration",
+    "test:coverage": "yarn test --coverage",
+    "test:unit:coverage": "yarn test:coverage test/unit",
+    "test:integration:coverage": "yarn test:coverage test/integration",
+    "test:ci:common": "yarn test:coverage --ci --reporters='jest-junit'",
+    "start": "dotenv -- nodemon index.js",
+    "db:_": "docker-compose --project-name hasura-todo --file test/integration/docker-compose.yml",
+    "db:up": "yarn db:_ up -d",
+    "db:down": "yarn db:_ down --volumes"
+  },
+  "_moduleAliases": {
+    "~": ".",
+    "#": "src"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "eslint": "5.3.0",
+    "eslint-config-airbnb-base": "13.2.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jest": "^22.9.0",
+    "eslint-plugin-markdown": "^1.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": ">= 1",
+    "jest": "^24.8.0",
+    "jest-junit": "^7.0.0",
+    "link-module-alias": "^1.2.0",
+    "lint-staged": ">=8",
+    "markdownlint-cli": "^0.17.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^1.11.1",
+    "standard-version": "^7.0.0",
+    "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint:js",
+      "git add"
+    ],
+    "*.md": [
+      "yarn lint:md",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "dotenv-cli": "^2.0.1",
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.0",
+    "koa-helmet": "^4.2.0",
+    "koa-morgan": "^1.0.1",
+    "koa-router": "^7.4.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog",
+      "maxHeaderWidth": 100,
+      "maxLineWidth": 100,
+      "defaultType": "",
+      "defaultScope": "",
+      "defaultSubject": "",
+      "defaultBody": "",
+      "defaultIssues": ""
+    }
+  }
+}
