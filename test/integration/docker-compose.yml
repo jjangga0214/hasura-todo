@@ -17,12 +17,14 @@ services:
       - ./data:/docker-entrypoint-initdb.d
       - db_data:/var/lib/postgresql/data
   graphql-engine:
-    image: hasura/graphql-engine
+    image: hasura/graphql-engine:v1.0.0-beta.4.cli-migrations
     ports:
       - target: 8080
         published: ${HASURA_PORT}
         protocol: tcp
         mode: host
+    volumes:
+      - ./hasura/migrations:/hasura-migrations
     depends_on:
       - 'db'
     restart: always
@@ -33,6 +35,6 @@ services:
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: '${HASURA_GRAPHQL_ADMIN_SECRET}'
       ## uncomment next lint for [migration](https://docs.hasura.io/1.0/graphql/manual/migrations/existing-database.html)
-      HASURA_GRAPHQL_ENABLE_CONSOLE: 'false'
+      # HASURA_GRAPHQL_ENABLE_CONSOLE: 'false'
 volumes:
   db_data:
