@@ -50,9 +50,8 @@
     "test:integration:coverage": "yarn test:coverage test/integration",
     "test:ci:common": "yarn test:coverage --ci --reporters='jest-junit'",
     "start": "dotenv -- nodemon index.js",
-    "db:_": "docker-compose --project-name hasura-todo --file test/integration/docker-compose.yml",
-    "db:up": "yarn db:_ up -d",
-    "db:down": "yarn db:_ down --volumes"
+    "db:up": "docker-compose up -d",
+    "db:down": "docker-compose down --volumes"
   },
   "_moduleAliases": {
     "~": ".",
