@@ -10,7 +10,7 @@ services:
       POSTGRES_PASSWORD: '${DB_PASSWORD}'
     ports:
       - target: 5432
-        published: ${DB_PORT}
+        published: ${DB_ENDPOINT_PORT}
         protocol: tcp
         mode: host
     volumes:
@@ -22,7 +22,7 @@ services:
     image: hasura/graphql-engine:v1.0.0-beta.4.cli-migrations
     ports:
       - target: 8080
-        published: ${HASURA_PORT}
+        published: ${HASURA_ENDPOINT_PORT}
         protocol: tcp
         mode: host
     volumes:
@@ -31,7 +31,7 @@ services:
       - 'db'
     restart: always
     environment:
-      HASURA_GRAPHQL_DATABASE_URL: 'postgres://${DB_USERNAME}:${DB_PASSWORD}@db:${DB_PORT}/${DB_DATABASE}'
+      HASURA_GRAPHQL_DATABASE_URL: 'postgres://${DB_USERNAME}:${DB_PASSWORD}@db:${DB_ENDPOINT_PORT}/${DB_DATABASE}'
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true' # set to "false" to disable console
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
       ## uncomment next line to set an admin secret
