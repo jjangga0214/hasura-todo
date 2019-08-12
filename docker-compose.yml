@@ -8,6 +8,7 @@ services:
       POSTGRES_DB: '${DB_DATABASE}'
       POSTGRES_USER: '${DB_USERNAME}'
       POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      PGTZ: ${DB_TIMEZONE}
     ports:
       - target: 5432
         published: ${DB_ENDPOINT_PORT}
