@@ -33,7 +33,7 @@ services:
     environment:
       HASURA_GRAPHQL_DATABASE_URL: 'postgres://${DB_USERNAME}:${DB_PASSWORD}@db:${DB_ENDPOINT_PORT}/${DB_DATABASE}'
       HASURA_GRAPHQL_ENABLE_CONSOLE: 'true' # set to "false" to disable console
-      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+      HASURA_GRAPHQL_ENABLED_LOG_TYPES: ${HASURA_GRAPHQL_ENABLED_LOG_TYPES}
       ## uncomment next line to set an admin secret
       # HASURA_GRAPHQL_ADMIN_SECRET: '${HASURA_GRAPHQL_ADMIN_SECRET}'
       ## set false to do manual [migration](https://docs.hasura.io/1.0/graphql/manual/migrations/existing-database.html)
