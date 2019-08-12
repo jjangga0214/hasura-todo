@@ -30,9 +30,19 @@ Copy and edit **.env** file as you want. Note that the server requires **.env** 
 cp .env.example .env
 ```
 
-Run the server. There is no command dedicated to local development environment (e.g. `yarn dev`). Both production and development use the same command.
+Run database and hasura.
 
 ```bash
+yarn db:up
+```
+
+Run the server.
+
+```bash
+# on local development environment
+yarn dev
+
+# on production environment
 yarn start
 ```
 
@@ -41,6 +51,10 @@ yarn start
 ```bash
 yarn db:up # runs hasura and postgres
 yarn db:down # clears hasura and postgres
+yarn db:down:clean # clears hasura and postgres and removes docker volumes
+
+yarn dev # runs server on local development environment
+yarn start # runs server on production environment
 
 yarn test # runs all tests (runs `jest` against "*.test.js")
 yarn test:unit # runs unit tests
@@ -49,7 +63,38 @@ yarn test:coverage # runs all tests and measures coverage
 yarn test:unit:coverage # runs unit tests and measures coverage
 yarn test:integration:coverage # runs integration tests and measures coverage
 
-yarn lint # lints and formats with eslint and prettier
+yarn lint # lints and formats with eslint, prettier, and markdownlint
+
+yarn release # create a release tag, writes CHANGELOG.md and commit.''
+
+yarn hasura:console # open hasura web console to generate migration files
+yarn hasura:pull # pulls migration files from local hasura server
+yarn hasura:pull:prod # pulls migration files from production hasura server
+yarn hasura:push # pushes(applies) migration files to local hasura server
+yarn hasura:push:prod # pushes(applies) migration files to production hasura server
+# rolls back a given number of migration(s) on local hasura server
+yarn hasura:rollback:count
+# rolls back a given number of migration(s) on production hasura server
+yarn hasura:rollback:count:prod
+# rolls back a specific version of migration on local hasura server
+yarn hasura:rollback:version
+# rolls back a specific version of migration on production hasura server
+yarn hasura:rollback:version:prod
+yarn hasura:status # shows migration status from local hasura server
+yarn hasura:status:prod # shows migration status from production hasura server
+```
+
+### examples for scripts with arguments
+
+```bash
+# pulls and creates migration files grouped by name 'init'
+hasura:pull 'init'
+
+# rolls back the last 2 migration versions
+yarn hasura:rollback:count 2
+
+# rolls back a particular migration version:
+yarn hasura:rollback:version 1550925483858
 ```
 
 ## License
