@@ -48,40 +48,61 @@ yarn start
 
 ## Yarn scripts
 
+Suffix `:prod` means 'production'. For example, `yarn hasura:pull` pulls migration files from local dev hasura server, `yarn hasura:pull:prod`, from remove production hasura server.
+
 ```bash
+# database and hasura
 yarn db:up # runs hasura and postgres
 yarn db:down # clears hasura and postgres
 yarn db:down:clean # clears hasura and postgres and removes docker volumes
 
-yarn dev # runs server on local development environment
+# api server
+yarn dev # runs server on local dev environment
 yarn start # runs server on production environment
 
-yarn test # runs all tests (runs `jest` against "*.test.js")
+# tests
+yarn test # runs all tests
 yarn test:unit # runs unit tests
 yarn test:integration # runs integration tests # TODO: configure with db
 yarn test:coverage # runs all tests and measures coverage
 yarn test:unit:coverage # runs unit tests and measures coverage
 yarn test:integration:coverage # runs integration tests and measures coverage
 
-yarn lint # lints and formats with eslint, prettier, and markdownlint
+# others
+yarn lint # lints and formats with eslint, prettier, and markdownlint.
+yarn release # creates a release tag, writes CHANGELOG.md and commit.
 
-yarn release # create a release tag, writes CHANGELOG.md and commit.''
+# hasura
+## open hasura web console to generate migration files
+yarn hasura:console
 
-yarn hasura:console # open hasura web console to generate migration files
-yarn hasura:pull # pulls migration files from local hasura server
-yarn hasura:pull:prod # pulls migration files from production hasura server
-yarn hasura:push # pushes(applies) migration files to local hasura server
-yarn hasura:push:prod # pushes(applies) migration files to production hasura server
-# rolls back a given number of migration(s) on local hasura server
+## pulls migration files from hasura server
+yarn hasura:pull
+yarn hasura:pull:prod
+
+## pushes(applies) migration files to hasura server
+yarn hasura:push
+yarn hasura:push:prod
+
+## pushes a given number of migration(s) to hasura server
+yarn hasura:push:count
+yarn hasura:push:count:prod
+
+## pushes specific version of migration to hasura server
+yarn hasura:push:version
+yarn hasura:push:version:prod
+
+## rolls back a given number of migration(s) from hasura server
 yarn hasura:rollback:count
-# rolls back a given number of migration(s) on production hasura server
 yarn hasura:rollback:count:prod
-# rolls back a specific version of migration on local hasura server
+
+## rolls back a specific version of migration from hasura server
 yarn hasura:rollback:version
-# rolls back a specific version of migration on production hasura server
 yarn hasura:rollback:version:prod
-yarn hasura:status # shows migration status from local hasura server
-yarn hasura:status:prod # shows migration status from production hasura server
+
+## shows migration status
+yarn hasura:status
+yarn hasura:status:prod
 ```
 
 ### examples for scripts with arguments
@@ -89,6 +110,12 @@ yarn hasura:status:prod # shows migration status from production hasura server
 ```bash
 # pulls and creates migration files grouped by name 'init'
 hasura:pull 'init'
+
+# pushes the last 2 migration versions
+yarn hasura:push:count 2
+
+# pushes a particular migration version to production hasura server
+yarn hasura:push:version:prod 1550925483858
 
 # rolls back the last 2 migration versions
 yarn hasura:rollback:count 2
