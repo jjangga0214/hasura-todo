@@ -24,10 +24,11 @@ Install dependencies.
 yarn install
 ```
 
-Copy and edit **.env** file as you want. Note that the server requires **.env** file, as it does not have any "default" values.
+Copy and edit **.env** file as you want. Note that the server does not populate any "default" values for environment variables. So, it requires a file **.env.dev**(for development environment) or **.env.prod**(for production environment).
 
 ```bash
-cp .env.example .env
+cp .env.example .env.dev
+cp .env.example .env.prod
 ```
 
 Run database and hasura.
